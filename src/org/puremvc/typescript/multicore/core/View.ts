@@ -2,10 +2,10 @@
 ///<reference path='../../../../../org/puremvc/typescript/multicore/interfaces/IObserver.ts'/>
 ///<reference path='../../../../../org/puremvc/typescript/multicore/interfaces/INotification.ts'/>
 ///<reference path='../../../../../org/puremvc/typescript/multicore/interfaces/IMediator.ts'/>
+///<reference path='../../../../../org/puremvc/typescript/multicore/patterns/observer/Observer.ts'/>
 
-module puremvc
-{
-	"use strict";
+module puremvc {
+    "use strict";
 
 	/**
 	 * The <code>View</code> class for PureMVC.
@@ -25,29 +25,28 @@ module puremvc
 	 * <LI>Notifying the <code>IObserver</code>s of a given <code>INotification</code> when it
 	 * broadcasts.
 	 */
-	export class View
-		implements IView
-	{
+    export class View
+        implements IView { 
 		/**
 		 * Mapping of <code>Mediator</code> names to <code>Mediator</code> instances.
 		 *
 		 * @protected
 		 */
-		mediatorMap:Object = null;
+        mediatorMap: Object = null;
 
 		/**
 		 * Mapping of <code>Notification</code> names to <code>Observers</code> lists.
 		 *
 		 * @protected
 		 */
-		observerMap:Object = null;
+        observerMap: Object = null;
 		
 		/**
 		 * Multiton key for this <code>View</code> instance.
 		 *
 		 * @protected
 		 */
-		multitonKey:string = null;
+        multitonKey: string = null;
 
 		/**
 		 * This <code>IView</code> implementation is a multiton, so you should not call the
@@ -60,19 +59,18 @@ module puremvc
 		 * @throws Error
 		 *		Throws an error if an instance for this multiton key has already been constructed.
 		 */
-		constructor( key:string )
-		{
-			if( View.instanceMap[ key ] )
-				throw Error( View.MULTITON_MSG );
-				
-			View.instanceMap[ key ] = this;
+        constructor(key: string) {
+            if (View.instanceMap[key])
+                throw Error(View.MULTITON_MSG);
 
-			this.multitonKey = key;
-			this.mediatorMap = {};
-			this.observerMap = {};
+            View.instanceMap[key] = this;
 
-			this.initializeView();
-		}
+            this.multitonKey = key;
+            this.mediatorMap = {};
+            this.observerMap = {};
+
+            this.initializeView();
+        }
 
 		/**
 		 * Initialize the multiton <code>View</code> instance.
@@ -80,10 +78,9 @@ module puremvc
 		 * Called automatically by the constructor. This is the opportunity to initialize the
 		 * multiton instance in a subclass without overriding the constructor.
 		 */
-		initializeView():void
-		{
+        initializeView(): void {
 
-		}
+        }
 
 		/**
 		 * Register an <code>IObserver</code> to be notified of <code>INotifications</code> with a
@@ -96,14 +93,13 @@ module puremvc
 		 * @param observer
 		 * 		The <code>IObserver</code> to register.
 		 */
-		registerObserver( notificationName:string, observer:IObserver ):void
-		{
-			var observers:IObserver[] = this.observerMap[ notificationName ];
-			if( observers )
-				observers.push( observer );
-			else
-				this.observerMap[ notificationName ] = [ observer ];
-		}
+        registerObserver(notificationName: string, observer: IObserver): void {
+            var observers: IObserver[] = this.observerMap[notificationName];
+            if (observers)
+                observers.push(observer);
+            else
+                this.observerMap[notificationName] = [observer];
+        }
 
 		/**
 		 * Remove a list of <code>IObserver</code>s for a given <code>notifyContext</code> from an
@@ -116,30 +112,27 @@ module puremvc
 		 * 		Remove the <code>IObserver</code> with this object as its
 		 *		<code>notifyContext</code>.
 		 */
-		removeObserver( notificationName:string, notifyContext:any ):void
-		{
-			//The observer list for the notification under inspection
-			var observers:IObserver[] = this.observerMap[ notificationName ];
+        removeObserver(notificationName: string, notifyContext: any): void {
+            //The observer list for the notification under inspection
+            var observers: IObserver[] = this.observerMap[notificationName];
 
-			//Find the observer for the notifyContext.
-			var i:number = observers.length;
-			while( i-- )
-			{
-				var observer:IObserver = observers[i];
-				if( observer.compareNotifyContext(notifyContext) )
-				{
-					observers.splice( i, 1 );
-					break;
-				}
-			}
+            //Find the observer for the notifyContext.
+            var i: number = observers.length;
+            while (i--) {
+                var observer: IObserver = observers[i];
+                if (observer.compareNotifyContext(notifyContext)) {
+                    observers.splice(i, 1);
+                    break;
+                }
+            }
 
 			/*
 			 * Also, when a Notification's Observer list length falls to zero, delete the
 			 * notification key from the observer map.
 			 */
-			if( observers.length == 0 )
-				delete this.observerMap[ notificationName ];
-		} 
+            if (observers.length == 0)
+                delete this.observerMap[notificationName];
+        } 
 
 		/**
 		 * Notify the <code>IObserver</code>s for a particular <code>INotification</code>.
@@ -151,23 +144,20 @@ module puremvc
 		 * @param notification
 		 * 		The <code>INotification</code> to notify <code>IObserver</code>s of.
 		 */
-		notifyObservers( notification:INotification ):void
-		{
-			var notificationName:string = notification.getName();
-	
-			var observersRef/*Array*/ = this.observerMap[notificationName];
-			if( observersRef )
-			{
-				// Copy the array.
-				var observers/*Array*/ = observersRef.slice(0);
-				var len/*Number*/ = observers.length;
-				for( var i/*Number*/=0; i<len; i++ )
-				{
-					var observer/*Observer*/ = observers[i];
-					observer.notifyObserver(notification);
-				}
-			}
-		}
+        notifyObservers(notification: INotification): void {
+            var notificationName: string = notification.getName();
+
+            var observersRef/*Array*/ = this.observerMap[notificationName];
+            if (observersRef) {
+                // Copy the array.
+                var observers/*Array*/ = observersRef.slice(0);
+                var len/*Number*/ = observers.length;
+                for (var i/*Number*/ = 0; i < len; i++) {
+                    var observer/*Observer*/ = observers[i];
+                    observer.notifyObserver(notification);
+                }
+            }
+        }
 
 		/**
 		 * Register an <code>IMediator</code> instance with the <code>View</code>.
@@ -184,35 +174,33 @@ module puremvc
 		 * @param mediator
 		 * 		A reference to an <code>IMediator</code> implementation instance.
 		 */
-		registerMediator( mediator:IMediator ):void
-		{
-			var name:string = mediator.getMediatorName();
+        registerMediator(mediator: IMediator): void {
+            var name: string = mediator.getMediatorName();
 
-			//Do not allow re-registration (you must removeMediator first).
-			if( this.mediatorMap[ name ] )
-				return;
+            //Do not allow re-registration (you must removeMediator first).
+            if (this.mediatorMap[name])
+                return;
 
-			mediator.initializeNotifier( this.multitonKey );
+            mediator.initializeNotifier(this.multitonKey);
 
-			//Register the Mediator for retrieval by name.
-			this.mediatorMap[ name ] = mediator;
+            //Register the Mediator for retrieval by name.
+            this.mediatorMap[name] = mediator;
 			
-			//Get Notification interests, if any.
-			var interests:string[] = mediator.listNotificationInterests();
-			var len:Number = interests.length;
-			if( len>0 )
-			{
-				//Create Observer referencing this mediator's handlNotification method.
-				var observer:IObserver = new Observer( mediator.handleNotification, mediator );
+            //Get Notification interests, if any.
+            var interests: string[] = mediator.listNotificationInterests();
+            var len: Number = interests.length;
+            if (len > 0) {
+                //Create Observer referencing this mediator's handlNotification method.
+                var observer: IObserver = new Observer(mediator.handleNotification, mediator);
 
-				//Register Mediator as Observer for its list of Notification interests.
-				for( var i:number=0;  i<len; i++ )
-					this.registerObserver( interests[i],  observer );
-			}
+                //Register Mediator as Observer for its list of Notification interests.
+                for (var i: number = 0; i < len; i++)
+                    this.registerObserver(interests[i], observer);
+            }
 			
-			//Alert the mediator that it has been registered.
-			mediator.onRegister();
-		}
+            //Alert the mediator that it has been registered.
+            mediator.onRegister();
+        }
 
 		/**
 		 * Retrieve an <code>IMediator</code> from the <code>View</code>.
@@ -224,11 +212,10 @@ module puremvc
 		 * 		The <code>IMediator</code> instance previously registered with the given
 		 *		<code>mediatorName</code> or an explicit <code>null</code> if it doesn't exists.
 		 */
-		retrieveMediator( mediatorName:string ):IMediator
-		{
-			//Return a strict null when the mediator doesn't exist
-			return this.mediatorMap[ mediatorName ] || null;
-		}
+        retrieveMediator(mediatorName: string): IMediator {
+            //Return a strict null when the mediator doesn't exist
+            return this.mediatorMap[mediatorName] || null;
+        }
 
 		/**
 		 * Remove an <code>IMediator</code> from the <code>View</code>.
@@ -240,29 +227,28 @@ module puremvc
 		 *		The <code>IMediator</code> that was removed from the <code>View</code> or a
 		 *		strict <code>null</null> if the <code>Mediator</code> didn't exist.
 		 */
-		removeMediator( mediatorName:string ):IMediator
-		{
-			// Retrieve the named mediator
-			var mediator:IMediator = this.mediatorMap[ mediatorName ];
-			if( !mediator )
-				return null;
+        removeMediator(mediatorName: string): IMediator {
+            // Retrieve the named mediator
+            var mediator: IMediator = this.mediatorMap[mediatorName];
+            if (!mediator)
+                return null;
 
-			//Get Notification interests, if any.
-			var interests:string[] = mediator.listNotificationInterests();
+            //Get Notification interests, if any.
+            var interests: string[] = mediator.listNotificationInterests();
 
-			//For every notification this mediator is interested in...
-			var i:number = interests.length;
-			while( i-- )
-				this.removeObserver( interests[i], mediator );
+            //For every notification this mediator is interested in...
+            var i: number = interests.length;
+            while (i--)
+                this.removeObserver(interests[i], mediator);
 
-			// remove the mediator from the map
-			delete this.mediatorMap[ mediatorName ];
+            // remove the mediator from the map
+            delete this.mediatorMap[mediatorName];
 
-			//Alert the mediator that it has been removed
-			mediator.onRemove();
+            //Alert the mediator that it has been removed
+            mediator.onRemove();
 
-			return mediator;
-		}
+            return mediator;
+        }
 		
 		/**
 		 * Check if a <code>IMediator</code> is registered or not.
@@ -273,10 +259,9 @@ module puremvc
 		 * @return
 		 *		An <code>IMediator</code> is registered with the given <code>mediatorName</code>.
 		 */
-		hasMediator( mediatorName:string ):boolean
-		{
-			return this.mediatorMap[ mediatorName ] != null;
-		}
+        hasMediator(mediatorName: string): boolean {
+            return this.mediatorMap[mediatorName] != null;
+        }
 
 
 		/**
@@ -286,14 +271,14 @@ module puremvc
 		 * @constant
 		 * @protected
 		 */
-		static MULTITON_MSG:string = "View instance for this multiton key already constructed!";
+        static MULTITON_MSG: string = "View instance for this multiton key already constructed!";
 
 		/**
 		 * <code>View</code> singleton instance map.
 		 *
 		 * @protected
 		 */
-		 static instanceMap:Object = {};
+        static instanceMap: Object = {};
 
 		/**
 		 * <code>View</code> multiton factory method.
@@ -304,13 +289,12 @@ module puremvc
 		 * @return
 		 *		The singleton instance of <code>View</code>.
 		 */
-		static getInstance( key:string ):IView
-		{
-			if( !View.instanceMap[key] )
-				View.instanceMap[key] = new View( key );
+        static getInstance(key: string): IView {
+            if (!View.instanceMap[key])
+                View.instanceMap[key] = new View(key);
 
-			return View.instanceMap[key];
-		}
+            return View.instanceMap[key];
+        }
 
 		/**
 		 * Remove a <code>View</code> instance.
@@ -318,9 +302,8 @@ module puremvc
 		 * @param key
 		 * 		Key identifier of <code>View</code> instance to remove.
 		 */
-		static removeView( key:string ):void
-		{
-			delete View.instanceMap[ key ];
-		}
-	}
+        static removeView(key: string): void {
+            delete View.instanceMap[key];
+        }
+    }
 }
