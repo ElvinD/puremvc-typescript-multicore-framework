@@ -1,9 +1,5 @@
-///<reference path='../../../../../../org/puremvc/typescript/multicore/interfaces/INotification.ts'/>
-///<reference path='../../../../../../org/puremvc/typescript/multicore/interfaces/IObserver.ts'/>
-
-module puremvc
-{
-	"use strict";
+module puremvc {
+    "use strict";
 
 	/**
 	 * A base <code>IObserver</code> implementation.
@@ -29,18 +25,17 @@ module puremvc
 	 * method invoked, passing in an object implementing the <code>INotification</code> interface,
 	 * such as a subclass of <code>Notification</code>.
 	 */
-	export class Observer
-		implements IObserver
-	{
+    export class Observer
+        implements IObserver {
 		/**
 		 * The notification method of the interested object.
 		 */
-		private notify:Function = null;
+        private notify: Function = null;
 
 		/**
 		 * The notification context of the interested object.
 		 */
-		private context:any = null;
+        private context: any = null;
 
 		/**
 		 * Constructs an <code>Observer</code> instance.
@@ -51,11 +46,10 @@ module puremvc
 		 * @param notifyContext
 		 * 		The notification context of the interested object.
 		 */
-		constructor( notifyMethod:Function, notifyContext:any )
-		{
-			this.setNotifyMethod( notifyMethod );
-			this.setNotifyContext( notifyContext );
-		}
+        constructor(notifyMethod: Function, notifyContext: any) {
+            this.setNotifyMethod(notifyMethod);
+            this.setNotifyContext(notifyContext);
+        }
 
 		/**
 		 * Get the notification method.
@@ -63,10 +57,9 @@ module puremvc
 		 * @return
 		 * 		The notification (callback) method of the interested object.
 		 */
-		private getNotifyMethod():Function
-		{
-			return this.notify;
-		}
+        private getNotifyMethod(): Function {
+            return this.notify;
+        }
 
 		/**
 		 * Set the notification method.
@@ -76,10 +69,9 @@ module puremvc
 		 * @param notifyMethod
 		 * 		The notification (callback) method of the interested object.
 		 */
-		setNotifyMethod( notifyMethod:Function ):void
-		{
-			this.notify = notifyMethod;
-		}
+        setNotifyMethod(notifyMethod: Function): void {
+            this.notify = notifyMethod;
+        }
 		
 		/**
 		 * Get the notification context.
@@ -87,10 +79,9 @@ module puremvc
 		 * @return
 		 * 		The notification context (<code>this</code>) of the interested object.
 		 */
-		private getNotifyContext():any
-		{
-			return this.context;
-		}
+        private getNotifyContext(): any {
+            return this.context;
+        }
 			
 		/**
 		 * Set the notification context.
@@ -98,10 +89,9 @@ module puremvc
 		 * @param notifyContext
 		 * 		The notification context (this) of the interested object.
 		 */
-		setNotifyContext( notifyContext:any ):void
-		{
-			this.context = notifyContext;
-		}
+        setNotifyContext(notifyContext: any): void {
+            this.context = notifyContext;
+        }
 
 		/**
 		 * Notify the interested object.
@@ -110,10 +100,9 @@ module puremvc
 		 * 		The <code>INotification</code> to pass to the interested object's notification
 		 * 		method.
 		 */
-		notifyObserver( notification:INotification ):void
-		{
-			this.getNotifyMethod().call( this.getNotifyContext(), notification );
-		}
+        notifyObserver(notification: INotification): void {
+            this.getNotifyMethod().call(this.getNotifyContext(), notification);
+        }
 	
 		/**
 		 * Compare an object to the notification context.
@@ -124,9 +113,8 @@ module puremvc
 		 * @return
 		 * 		The object and the notification context are the same.
 		 */
-		 compareNotifyContext( object:any ):boolean
-		 {
-		 	return object === this.context;
-		 }		
-	}
+        compareNotifyContext(object: any): boolean {
+            return object === this.context;
+        }
+    }
 }

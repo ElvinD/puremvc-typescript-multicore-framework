@@ -1,12 +1,5 @@
-///<reference path='../../../../../../org/puremvc/typescript/multicore/interfaces/ICommand.ts'/>
-///<reference path='../../../../../../org/puremvc/typescript/multicore/interfaces/INotifier.ts'/>
-///<reference path='../../../../../../org/puremvc/typescript/multicore/interfaces/INotification.ts'/>
-
-///<reference path='../../../../../../org/puremvc/typescript/multicore/patterns/observer/Notifier.ts'/>
-
-module puremvc
-{
-	"use strict";
+module puremvc {
+    "use strict";
 
 	/**
 	 * A base <code>ICommand</code> implementation.
@@ -14,10 +7,7 @@ module puremvc
 	 * Your subclass should override the <code>execute</code> method where your business logic will
 	 * handle the <code>INotification</code>.
 	 */
-	export class SimpleCommand
-		extends Notifier
-		implements ICommand, INotifier
-	{
+    export class SimpleCommand extends Notifier implements ICommand, INotifier {
 		/**
 		 * Fulfill the use-case initiated by the given <code>INotification</code>.
 		 * 
@@ -28,9 +18,8 @@ module puremvc
 		 * @param notification
 		 * 		The <code>INotification</code> to handle.
 		 */
-		execute( notification:INotification ):void
-		{
+        execute(notification: INotification): void {
 
-		}
-	}
+        }
+    }
 }

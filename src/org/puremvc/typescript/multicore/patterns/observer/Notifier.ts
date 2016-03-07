@@ -1,11 +1,5 @@
-///<reference path='../../../../../../org/puremvc/typescript/multicore/interfaces/INotifier.ts'/>
-///<reference path='../../../../../../org/puremvc/typescript/multicore/interfaces/IFacade.ts'/>
-
-///<reference path='../../../../../../org/puremvc/typescript/multicore/patterns/facade/Facade.ts'/>
-
-module puremvc
-{
-	"use strict";
+module puremvc {
+    "use strict";
 
 	/**
 	 * A base <code>INotifier</code> implementation.
@@ -32,15 +26,13 @@ module puremvc
 	 * <LI>On a <code>IMediator</code> is registered with the <code>View</code>.
 	 * <LI>On a <code>IProxy</code> is registered with the <code>Model</code>.
 	 */
-	export class Notifier
-		implements INotifier
-	{
+    export class Notifier implements INotifier {
 		/**
 		 * The multiton key for this core.
 		 *
 		 * @protected
 		 */
-		multitonKey:string = null;
+        multitonKey: string = null;
 
 		/**
 		 * Initialize a <code>Notifier</code> instance with its cor multiton key.
@@ -57,10 +49,9 @@ module puremvc
 		 * @param key
 		 *		The multiton key for this <code>Notifier</code> to use.
 		 */
-		 initializeNotifier( key )
-		{
-			this.multitonKey = key;
-		}
+        initializeNotifier(key) {
+            this.multitonKey = key;
+        }
 
 		/**
 		 * Create and send a <code>Notification</code>.
@@ -77,11 +68,10 @@ module puremvc
 		 * @param type
 		 * 		The type of the notification.
 		 */
-		sendNotification( name:string, body:any=null, type:string=null ):void
-		{
-			if( this.facade() ) 
-				this.facade().sendNotification( name, body, type );
-		}
+        sendNotification(name: string, body: any = null, type: string = null): void {
+            if (this.facade())
+                this.facade().sendNotification(name, body, type);
+        }
 
 		/**
 		 * Return the multiton <code>Facade</code> instance.
@@ -92,13 +82,12 @@ module puremvc
 		 * @throws
 		 *		Throws an error if the multiton key for this Notifier is not yet initialized.
 		 */
-		facade():IFacade
-		{
-			if( this.multitonKey === null )
-					throw Error( Notifier.MULTITON_MSG );
+        facade(): IFacade {
+            if (this.multitonKey === null)
+                throw Error(Notifier.MULTITON_MSG);
 
-			return Facade.getInstance( this.multitonKey );
-		}
+            return Facade.getInstance(this.multitonKey);
+        }
 
 		/**
 		 * Message Constants
@@ -106,6 +95,6 @@ module puremvc
 		 * @constant
 		 * @protected
 		 */
-		static MULTITON_MSG:string = "multitonKey for this Notifier not yet initialized!";
-	}
+        static MULTITON_MSG: string = "multitonKey for this Notifier not yet initialized!";
+    }
 }

@@ -3,9 +3,8 @@
 ///<reference path='../../../../../../org/puremvc/typescript/multicore/interfaces/INotification.ts'/>
 ///<reference path='../../../../../../org/puremvc/typescript/multicore/patterns/observer/Notifier.ts'/>
 
-module puremvc
-{
-	"use strict";
+module puremvc {
+    "use strict";
 
 	/**
 	 * A base <code>IMediator</code> implementation. 
@@ -13,23 +12,20 @@ module puremvc
 	 * Typically, a <code>Mediator</code> will be written to serve one specific control or group
 	 * controls and so, will not have a need to be dynamically named.
 	 */
-	export class Mediator
-		extends Notifier
-		implements IMediator, INotifier
-	{
+    export class Mediator extends Notifier implements IMediator, INotifier {
 		/**
 		 * The name of the <code>Mediator</code>.
 		 *
 		 * @protected
 		 */
-		mediatorName:string = null;
+        mediatorName: string = null;
 
 		/**
 		 * The <code>Mediator</code>'s view component.
 		 *
 		 * @protected
 		 */
-		viewComponent:any = null;
+        viewComponent: any = null;
 
 		/**
 		 * Constructs a <code>Mediator</code> instance.
@@ -40,24 +36,22 @@ module puremvc
 		 * @param viewComponent
 		 * 		The view component handled by this <code>Mediator</code>.
 		 */
-		constructor( mediatorName:string=null, viewComponent:any=null )
-		{
-			super();
+        constructor(mediatorName: string = null, viewComponent: any = null) {
+            super();
 
-			this.mediatorName = (mediatorName != null) ? mediatorName : Mediator.NAME;
-			this.viewComponent = viewComponent;	
-		}
+            this.mediatorName = (mediatorName != null) ? mediatorName : Mediator.NAME;
+            this.viewComponent = viewComponent;
+        }
 
 		/**
 		 * Get the <code>Mediator</code> instance name.
 		 *
 		 * @return
 		 * 		The <code>Mediator</code> instance name
-		 */		
-		getMediatorName():string
-		{	
-			return this.mediatorName;
-		}
+		 */
+        getMediatorName(): string {
+            return this.mediatorName;
+        }
 
 		/**
 		 * Get the <code>Mediator</code>'s view component.
@@ -75,10 +69,9 @@ module puremvc
 		 * @return
 		 * 		The <code>Mediator</code>'s default view component.
 		 */
-		getViewComponent():any
-		{	
-			return this.viewComponent;
-		}
+        getViewComponent(): any {
+            return this.viewComponent;
+        }
 
 		/**
 		 * Set the <code>IMediator</code>'s view component.
@@ -86,10 +79,9 @@ module puremvc
 		 * @param viewComponent
 		 * 		The default view component to set for this <code>Mediator</code>.
 		 */
-		setViewComponent( viewComponent:any ):void
-		{
-			this.viewComponent = viewComponent;
-		}
+        setViewComponent(viewComponent: any): void {
+            this.viewComponent = viewComponent;
+        }
 
 		/**
 		 * List the <code>INotification</code> names this <code>IMediator</code> is interested in
@@ -98,10 +90,9 @@ module puremvc
 		 * @return
 		 * 		The list of notifications names in which is interested the <code>Mediator</code>.
 		 */
-		listNotificationInterests():string[]
-		{
-			return new Array<string>();
-		}
+        listNotificationInterests(): string[] {
+            return new Array<string>();
+        }
 
 		/**
 		 * Handle <code>INotification</code>s.
@@ -112,35 +103,32 @@ module puremvc
 		 *
 		 * @param notification
 		 * 		The notification instance to be handled.
-		 */ 
-		handleNotification( notification:INotification ):void
-		{
+		 */
+        handleNotification(notification: INotification): void {
 
-		}
+        }
 
 		/**
 		 * Called by the View when the Mediator is registered. This method has to be overridden
 		 * by the subclass to know when the instance is registered.
-		 */ 
-		onRegister():void
-		{
+		 */
+        onRegister(): void {
 
-		}
+        }
 
 		/**
 		 * Called by the View when the Mediator is removed. This method has to be overridden
 		 * by the subclass to know when the instance is removed.
-		 */ 
-		onRemove():void
-		{
+		 */
+        onRemove(): void {
 
-		}
+        }
 
 		/**
 		 * Default name of the <code>Mediator</code>.
 		 *
 		 * @constant
 		 */
-		static NAME:string = 'Mediator';
-	}
+        static NAME: string = 'Mediator';
+    }
 }

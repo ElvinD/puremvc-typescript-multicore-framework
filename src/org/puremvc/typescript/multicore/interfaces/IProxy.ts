@@ -1,7 +1,6 @@
 ///<reference path='../../../../../org/puremvc/typescript/multicore/interfaces/INotifier.ts'/>
 
-module puremvc
-{
+module puremvc {
 	/**
 	 * The interface definition for a PureMVC Proxy.
 	 *
@@ -20,16 +19,14 @@ module puremvc
 	 * <LI>Encapsulate interaction with local or remote services used to fetch and persist model
 	 * data.
 	 */
-	export interface IProxy
-		extends INotifier
-	{
+    export interface IProxy extends INotifier {
 		/**
 		 * Get the name of the <code>IProxy></code> instance.
 		 *
 		 * @return
 		 * 		The name of the <code>IProxy></code> instance.
 		 */
-		getProxyName():string;
+        getProxyName(): string;
 
 		/**
 		 * Set the data of the <code>IProxy></code> instance.
@@ -37,7 +34,7 @@ module puremvc
 		 * @param data
 		 * 		The data to set for the <code>IProxy></code> instance.
 		 */
-		setData( data:any ):void;
+        setData(data: any): void;
 
 		/**
 		 * Get the data of the <code>IProxy></code> instance.
@@ -45,18 +42,18 @@ module puremvc
 		 * @return
 		 * 		The data held in the <code>IProxy</code> instance.
 		 */
-		getData():any;
+        getData(): any;
 
 		/**
 		 * Called by the Model when the <code>IProxy</code> is registered. This method has to be
 		 * overridden by the subclass to know when the instance is registered.
 		 */
-		onRegister( ):void;
+        onRegister(): void;
 
 		/**
 		 * Called by the Model when the <code>IProxy</code> is removed. This method has to be
 		 * overridden by the subclass to know when the instance is removed.
 		 */
-		onRemove( ):void;
-	}
+        onRemove(): void;
+    }
 }

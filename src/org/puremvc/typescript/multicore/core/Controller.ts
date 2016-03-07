@@ -1,14 +1,5 @@
-///<reference path='../../../../../org/puremvc/typescript/multicore/interfaces/IController.ts'/>
-///<reference path='../../../../../org/puremvc/typescript/multicore/interfaces/IView.ts'/>
-///<reference path='../../../../../org/puremvc/typescript/multicore/interfaces/INotification.ts'/>
-///<reference path='../../../../../org/puremvc/typescript/multicore/interfaces/ICommand.ts'/>
-
-///<reference path='../../../../../org/puremvc/typescript/multicore/patterns/observer/Observer.ts'/>
-///<reference path='../../../../../org/puremvc/typescript/multicore/core/View.ts'/>
-
-module puremvc
-{
-	"use strict";
+module puremvc {
+    "use strict";
 
 	/**
 	 * The <code>Controller</code> class for PureMVC.
@@ -33,29 +24,27 @@ module puremvc
  	 * The simplest way is to subclass </code>Facade</code>, and use its
 	 * <code>initializeController</code> method to add your registrations.
 	 */
-	export class Controller
-		implements IController
-	{
+    export class Controller implements IController {
 		/**
 		 * Local reference to the <code>View</code> singleton.
 		 *
 		 * @protected
-		 */		
-		view:IView = null;
+		 */
+        view: IView = null;
 
 		/**
 		 * Mapping of <code>Notification<code> names to <code>Command</code> constructors references.
 		 *
 		 * @protected
-		 */		
-		commandMap:Object = null;
+		 */
+        commandMap: Object = null;
 
 		/**
 		 * The multiton Key for this Core.
 		 *
 		 * @protected
 		 */
-		multitonKey:string = null;
+        multitonKey: string = null;
 		
 		/**
 		 * Constructs a <code>Controller</code> instance.
@@ -70,17 +59,16 @@ module puremvc
 		 * @throws Error
 		 * 		Throws an error if an instance for this multiton key has already been constructed.
 		 */
-		constructor( key:string )
-		{
-			if( Controller.instanceMap[ key ] )
-				throw Error( Controller.MULTITON_MSG );
+        constructor(key: string) {
+            if (Controller.instanceMap[key])
+                throw Error(Controller.MULTITON_MSG);
 
-			Controller.instanceMap[ key ] = this;
+            Controller.instanceMap[key] = this;
 
-			this.multitonKey = key;
-			this.commandMap = {};
-			this.initializeController();
-		}
+            this.multitonKey = key;
+            this.commandMap = {};
+            this.initializeController();
+        }
 
 		/**
 		 * Initialize the multiton <code>Controller</code> instance.
@@ -101,10 +89,9 @@ module puremvc
 		 *
 		 * @protected
 		 */
-		initializeController():void
-		{
-			this.view = View.getInstance( this.multitonKey );
-		}
+        initializeController(): void {
+            this.view = View.getInstance(this.multitonKey);
+        }
 
 		/**
 		 * If an <code>ICommand</code> has previously been registered to handle the given
@@ -113,21 +100,19 @@ module puremvc
 		 * @param notification
 		 * 		The <code>INotification</code> the command will receive as parameter.
 		 */
-		executeCommand( notification:INotification ):void
-		{
+        executeCommand(notification: INotification): void {
 			/*
 			 * Typed any here instead of <code>Function</code> ( won't compile if set to Function
 			 * because today the compiler consider that <code>Function</code> is not newable and
 			 * doesn't have a <code>Class</code> type)
 			 */
-			var commandClassRef:any = this.commandMap[ notification.getName() ];
-			if( commandClassRef )
-			{
-				var command:ICommand = <ICommand> /*</>*/ new commandClassRef();
-				command.initializeNotifier( this.multitonKey );
-				command.execute( notification );
-			}
-		}
+            var commandClassRef: any = this.commandMap[notification.getName()];
+            if (commandClassRef) {
+                var command: puremvc.ICommand = <ICommand> /*</>*/ new commandClassRef();
+                command.initializeNotifier(this.multitonKey);
+                command.execute(notification);
+            }
+        }
 
 		/**
 		 * Register a particular <code>ICommand</code> class as the handler for a particular
@@ -147,13 +132,12 @@ module puremvc
 		 * @param commandClassRef
 		 * 		The constructor of the <code>ICommand</code>.
 		 */
-		registerCommand( notificationName:string, commandClassRef:Function ):void
-		{
-			if( !this.commandMap[ notificationName ] )
-				this.view.registerObserver( notificationName, new Observer( this.executeCommand, this ) );
+        registerCommand(notificationName: string, commandClassRef: Function): void {
+            if (!this.commandMap[notificationName])
+                this.view.registerObserver(notificationName, new Observer(this.executeCommand, this));
 
-			this.commandMap[ notificationName ] = commandClassRef;
-		}
+            this.commandMap[notificationName] = commandClassRef;
+        }
 
 		/**
 		 * Check if an <code>ICommand</code> is registered for a given <code>Notification</code>.
@@ -166,10 +150,9 @@ module puremvc
 		 * 		An <code>ICommand</code> is currently registered for the given
 		 * 		<code>notificationName</code>.
 		 */
-		hasCommand( notificationName:string ):boolean
-		{
-			return this.commandMap[ notificationName ] != null;
-		}
+        hasCommand(notificationName: string): boolean {
+            return this.commandMap[notificationName] != null;
+        }
 
 		/**
 		 * Remove a previously registered <code>ICommand</code> to <code>INotification</code>
@@ -179,15 +162,13 @@ module puremvc
 		 * 		The name of the <code>INotification</code> to remove the <code>ICommand</code>
 		 * 		mapping for.
 		 */
-		removeCommand( notificationName:string ):void
-		{
-			// if the Command is registered...
-			if( this.hasCommand( notificationName ) )
-			{
-				this.view.removeObserver( notificationName, this );			
-				delete this.commandMap[notificationName];
-			}
-		}
+        removeCommand(notificationName: string): void {
+            // if the Command is registered...
+            if (this.hasCommand(notificationName)) {
+                this.view.removeObserver(notificationName, this);
+                delete this.commandMap[notificationName];
+            }
+        }
 
 
 		/**
@@ -197,14 +178,14 @@ module puremvc
 		 * @protected
 		 * @constant
 		 */
-		static MULTITON_MSG:string = "Controller instance for this multiton key already constructed!";
+        static MULTITON_MSG: string = "Controller instance for this multiton key already constructed!";
 
 		/**
 		 * <code>Controller</code> singleton instance map.
 		 *
 		 * @protected
 		 */
-		static instanceMap:Object = {};
+        static instanceMap: Object = {};
 
 		/**
 		 * <code>Controller</code> multiton factory method.
@@ -215,13 +196,12 @@ module puremvc
 		 * @return
 		 * 		The multiton instance of <code>Controller</code>
 		 */
-		static getInstance( key:string ):IController
-		{
-			if( !Controller.instanceMap[ key ] )
-				Controller.instanceMap[ key ] = new Controller( key );
+        static getInstance(key: string): IController {
+            if (!Controller.instanceMap[key])
+                Controller.instanceMap[key] = new Controller(key);
 
-			return Controller.instanceMap[ key ];
-		}
+            return Controller.instanceMap[key];
+        }
 
 		/**
 		 * Remove a <code>Controller</code> instance.
@@ -229,9 +209,8 @@ module puremvc
 		 * @param key
 		 *		Multiton key of the <code>Controller</code> instance to remove.
 		 */
-		static removeController( key:string ):void
-		{
-			delete Controller.instanceMap[ key ];
-		}
-	}
+        static removeController(key: string): void {
+            delete Controller.instanceMap[key];
+        }
+    }
 }

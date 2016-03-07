@@ -1,7 +1,4 @@
-///<reference path='../../../../../org/puremvc/typescript/multicore/interfaces/INotification.ts'/>
-
-module puremvc
-{
+module puremvc {
 	/**
 	 * The interface definition for a PureMVC Observer.
 	 *
@@ -26,8 +23,7 @@ module puremvc
 	 * method invoked, passing in an object implementing the <code>INotification</code> interface,
 	 * such as a subclass of <code>Notification</code>.
 	 */
-	export interface IObserver
-	{
+    export interface IObserver {
 		/**
 		 * Set the notification method.
 		 *
@@ -36,7 +32,7 @@ module puremvc
 		 * @param notifyMethod
 		 * 		The notification (callback) method of the interested object.
 		 */
-		setNotifyMethod( notifyMethod:Function ):void;
+        setNotifyMethod(notifyMethod: Function): void;
 		
 		/**
 		/**
@@ -45,7 +41,7 @@ module puremvc
 		 * @param notifyContext
 		 * 		The notification context (this) of the interested object.
 		 */
-		setNotifyContext( notifyContext:any ):void;
+        setNotifyContext(notifyContext: any): void;
 		
 		/**
 		 * Notify the interested object.
@@ -54,7 +50,7 @@ module puremvc
 		 * 		The <code>INotification</code> to pass to the interested object's notification
 		 * 		method.
 		 */
-		notifyObserver( notification:INotification ):void;
+        notifyObserver(notification: INotification): void;
 		
 		/**
 		 * Compare an object to the notification context.
@@ -65,6 +61,6 @@ module puremvc
 		 * @return
 		 * 		The object and the notification context are the same.
 		 */
-		compareNotifyContext( object:any ):boolean;
-	}
+        compareNotifyContext(object: any): boolean;
+    }
 }

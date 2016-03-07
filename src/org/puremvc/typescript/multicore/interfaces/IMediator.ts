@@ -1,8 +1,4 @@
-///<reference path='../../../../../org/puremvc/typescript/multicore/interfaces/INotification.ts'/>
-///<reference path='../../../../../org/puremvc/typescript/multicore/interfaces/INotifier.ts'/>
-
-module puremvc
-{
+module puremvc {
 	/**
 	 * The interface definition for a PureMVC Mediator.
 	 *
@@ -33,16 +29,14 @@ module puremvc
 	 * and register it as an Observer for each <code>INotification</code> name returned by 
 	 * <code>listNotificationInterests</code>.
 	 */
-	export interface IMediator
-		extends INotifier
-	{
+    export interface IMediator extends INotifier {
 		/**
 		 * Get the <code>IMediator</code> instance name
 		 * 
 		 * @return
 		 * 		The <code>IMediator</code> instance name
 		 */
-		getMediatorName():string;
+        getMediatorName(): string;
 		
 		/**
 		 * Get the <code>Mediator</code>'s view component.
@@ -60,7 +54,7 @@ module puremvc
 		 * @return
 		 * 		The <code>Mediator</code>'s view component.
 		 */
-		getViewComponent():any;
+        getViewComponent(): any;
 
 		/**
 		 * Set the <code>IMediator</code>'s view component.
@@ -68,7 +62,7 @@ module puremvc
 		 * @param viewComponent
 		 * 		The default view component to set for this <code>Mediator</code>.
 		 */
-		setViewComponent( viewComponent:any ):void;
+        setViewComponent(viewComponent: any): void;
 		
 		/**
 		 * List the <code>INotification</code> names this <code>IMediator</code> is interested in
@@ -77,7 +71,7 @@ module puremvc
 		 * @return
 		 * 		The list of notifications names in which is interested the <code>Mediator</code>.
 		 */
-		listNotificationInterests( ):string[];
+        listNotificationInterests(): string[];
 		
 		/**
 		 * Handle <code>INotification</code>s.
@@ -88,19 +82,19 @@ module puremvc
 		 *
 		 * @param notification
 		 * 		The notification instance to be handled.
-		 */ 
-		handleNotification( notification:INotification ):void;
+		 */
+        handleNotification(notification: INotification): void;
 		
 		/**
 		 * Called by the View when the Mediator is registered. This method has to be overridden
 		 * by the subclass to know when the instance is registered.
-		 */ 
-		onRegister():void;
+		 */
+        onRegister(): void;
 
 		/**
 		 * Called by the View when the Mediator is removed. This method has to be overridden
 		 * by the subclass to know when the instance is removed.
-		 */ 
-		onRemove():void;
-	}
+		 */
+        onRemove(): void;
+    }
 }

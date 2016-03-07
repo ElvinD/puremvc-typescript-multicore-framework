@@ -1,8 +1,5 @@
-///<reference path='../../../../../../org/puremvc/typescript/multicore/interfaces/INotification.ts'/>
-
-module puremvc
-{
-	"use strict";
+module puremvc {
+    "use strict";
 	
 	/**
 	 * A base <code>INotification</code> implementation.
@@ -28,23 +25,22 @@ module puremvc
 	 * pattern. PureMVC classes need not be related to each other in a parent/child relationship in
 	 * order to communicate with one another using <code>INotification</code>s.
 	 */
-	export class Notification
-		implements INotification
-	{
+    export class Notification
+        implements INotification {
 		/**
 		 * The name of the <code>Notification</code>.
 		 */
-		private name:string = null;
+        private name: string = null;
 
 		/**
 		 * The body data to send with the <code>Notification</code>.
 		 */
-		private body:any = null;
+        private body: any = null;
 
 		/**
 		 * The type identifier of the <code>Notification</code>.
 		 */
-		private type:string = null;
+        private type: string = null;
 
 		/**
 		 * Constructs a <code>Notification</code> instance.
@@ -58,12 +54,11 @@ module puremvc
 		 * @param type
 		 * 		Type identifier of the <code>Notification</code>.
 		 */
-		constructor( name:string, body:any=null, type:string=null )
-		{
-			this.name = name;
-			this.body = body;
-			this.type = type;
-		}
+        constructor(name: string, body: any = null, type: string = null) {
+            this.name = name;
+            this.body = body;
+            this.type = type;
+        }
 
 		/**
 		 * Get the name of the <code>Notification</code> instance.
@@ -71,10 +66,9 @@ module puremvc
 		 * @return
 		 *		The name of the <code>Notification</code> instance.
 		 */
-		getName():string
-		{
-			return this.name;
-		}
+        getName(): string {
+            return this.name;
+        }
 
 		/**
 		 * Set the body of the <code>Notification</code> instance.
@@ -82,10 +76,9 @@ module puremvc
 		 * @param body
 		 * 		The body of the <code>Notification</code> instance.
 		 */
-		setBody( body:any ):void
-		{
-			this.body = body;
-		}
+        setBody(body: any): void {
+            this.body = body;
+        }
 
 		/**
 		 * Get the body of the <code>Notification</code> instance.
@@ -93,10 +86,9 @@ module puremvc
 		 * @return
 		 *		The body object of the <code>Notification</code> instance.
 		 */
-		getBody():any
-		{
-			return this.body;
-		}
+        getBody(): any {
+            return this.body;
+        }
 
 		/**
 		 * Set the type of the <code>Notification</code> instance.
@@ -104,10 +96,9 @@ module puremvc
 		 * @param type
 		 * 		The type of the <code>Notification</code> instance.
 		 */
-		setType( type:string ):void
-		{
-			this.type = type;
-		}
+        setType(type: string): void {
+            this.type = type;
+        }
 
 		/**
 		 * Get the type of the <code>Notification</code> instance.
@@ -115,10 +106,9 @@ module puremvc
 		 * @return
 		 *		The type of the <code>Notification</code> instance.
 		 */
-		getType():string
-		{
-			return this.type;
-		}
+        getType(): string {
+            return this.type;
+        }
 
 		/**
 		 * Get a textual representation of the <code>Notification</code> instance.
@@ -126,12 +116,11 @@ module puremvc
 		 * @return
 		 * 		The textual representation of the <code>Notification</code>	instance.
 		 */
-		toString():string
-		{
-			var msg:string = "Notification Name: " + this.getName();
-			msg += "\nBody:" + (( this.getBody() == null ) ? "null" : this.getBody().toString());
-			msg += "\nType:" + (( this.getType() == null ) ? "null" : this.getType());
-			return msg;
-		}		
-	}
+        toString(): string {
+            var msg: string = "Notification Name: " + this.getName();
+            msg += "\nBody:" + ((this.getBody() == null) ? "null" : this.getBody().toString());
+            msg += "\nType:" + ((this.getType() == null) ? "null" : this.getType());
+            return msg;
+        }
+    }
 }

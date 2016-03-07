@@ -1,11 +1,5 @@
-///<reference path='../../../../../../org/puremvc/typescript/multicore/interfaces/ICommand.ts'/>
-///<reference path='../../../../../../org/puremvc/typescript/multicore/interfaces/INotifier.ts'/>
-///<reference path='../../../../../../org/puremvc/typescript/multicore/interfaces/INotification.ts'/>
-///<reference path='../../../../../../org/puremvc/typescript/multicore/patterns/observer/Notifier.ts'/>
-
-module puremvc
-{
-	"use strict";
+module puremvc {
+    "use strict";
 	
 	/**
 	 * A base <code>ICommand</code> implementation that executes other <code>ICommand</code>s.
@@ -22,16 +16,15 @@ module puremvc
 	 * but instead, should override the <code>initializeMacroCommand</code> method, calling
 	 * <code>addSubCommand</code> once for each <i>SubCommand</i> to be executed.
 	 */
-	export class MacroCommand
-		extends Notifier
-		implements ICommand, INotifier
-	{
+    export class MacroCommand
+        extends Notifier
+        implements ICommand, INotifier {
 		/**
 		 * An array of <code>ICommand</code>s.
 		 *
 		 * @protected
 		 */
-		subCommands:Function[] = null;
+        subCommands: Function[] = null;
 		
 		/**
 		 * Constructs a <code>MacroCommand</code> instance.
@@ -41,13 +34,12 @@ module puremvc
 		 *
 		 * If your subclass does define a constructor, be  sure to call <code>super()</code>.
 		 */
-		constructor()
-		{
-			super();
+        constructor() {
+            super();
 
-			this.subCommands = new Array<Function>();
-			this.initializeMacroCommand();
-		}
+            this.subCommands = new Array<Function>();
+            this.initializeMacroCommand();
+        }
 
 		/**
 		 * Initialize the <code>MacroCommand</code>.
@@ -70,10 +62,9 @@ module puremvc
 		 *
 		 * @protected
 		 */
-		initializeMacroCommand():void
-		{
-		
-		}
+        initializeMacroCommand(): void {
+
+        }
 
 		/**
 		 * Add an entry to the <i>subCommands</i> list.
@@ -85,10 +76,9 @@ module puremvc
 		 *
 		 * @protected
 		 */
-		addSubCommand( commandClassRef:Function ):void
-		{
-			this.subCommands.push(commandClassRef);
-		}
+        addSubCommand(commandClassRef: Function): void {
+            this.subCommands.push(commandClassRef);
+        }
 
 		/** 
 		 * Execute this <code>MacroCommand</code>'s <i>SubCommands</i>.
@@ -102,24 +92,22 @@ module puremvc
 		 *
 		 * @final
 		 */
-		execute( notification:INotification ):void
-		{
-			var	subCommands:Function[] = this.subCommands.slice(0);
-			var	len:number = this.subCommands.length;
-			for( var i:number=0; i<len; i++ )
-			{
+        execute(notification: INotification): void {
+            var subCommands: Function[] = this.subCommands.slice(0);
+            var len: number = this.subCommands.length;
+            for (var i: number = 0; i < len; i++) {
 				/*
 				 * Typed any here instead of <code>Function</code> ( won't compile if set to Function
 				 * because today the compiler consider that <code>Function</code> is not newable and
 				 * doesn't have a <code>Class</code> type)
 				 */
-				var commandClassRef:any = subCommands[i];
-				var commandInstance:ICommand = <ICommand> /*</>*/ new commandClassRef();
-				commandInstance.initializeNotifier( this.multitonKey );
-				commandInstance.execute( notification );
-			}
-			
-			this.subCommands.splice(0);
-		}
-	}
+                var commandClassRef: any = subCommands[i];
+                var commandInstance: ICommand = <ICommand> /*</>*/ new commandClassRef();
+                commandInstance.initializeNotifier(this.multitonKey);
+                commandInstance.execute(notification);
+            }
+
+            this.subCommands.splice(0);
+        }
+    }
 }

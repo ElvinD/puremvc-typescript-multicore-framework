@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<project name="build" basedir="." default="build.all">
+<project name="PureMVC Typescript Multicore" basedir="." default="build.all">
 
 
 

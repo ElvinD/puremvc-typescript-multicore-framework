@@ -1,7 +1,4 @@
-///<reference path='../../../../../org/puremvc/typescript/multicore/interfaces/INotification.ts'/>
-
-module puremvc
-{
+module puremvc {
 	/**
 	 * The interface definition for a PureMVC Controller.
 	 *
@@ -22,8 +19,7 @@ module puremvc
  	 * The simplest way is to subclass </code>Facade</code>, and use its
 	 * <code>initializeController</code> method to add your registrations.
 	 */
-	export interface IController
-	{
+    export interface IController {
 		/**
 		 * If an <code>ICommand</code> has previously been registered to handle the given
 		 * <code>INotification</code>, then it is executed.
@@ -31,7 +27,7 @@ module puremvc
 		 * @param notification
 		 * 		The <code>INotification</code> the command will receive as parameter.
 		 */
-		executeCommand( notification:INotification ):void;
+        executeCommand(notification: INotification): void;
 		
 		/**
 		 * Register a particular <code>ICommand</code> class as the handler for a particular
@@ -51,7 +47,7 @@ module puremvc
 		 * @param commandClassRef
 		 * 		The constructor of the <code>ICommand</code> implementor classes.
 		 */
-		registerCommand( notificationName:string, commandClassRef:Function ):void;
+        registerCommand(notificationName: string, commandClassRef: Function): void;
 		
 		/**
 		 * Check if an <code>ICommand</code> is registered for a given <code>Notification</code>.
@@ -64,7 +60,7 @@ module puremvc
 		 * 		An <code>ICommand</code> is currently registered for the given
 		 *		<code>notificationName</code>.
 		 */
-		hasCommand( notificationName:string ):boolean;
+        hasCommand(notificationName: string): boolean;
 
 		/**
 		 * Remove a previously registered <code>ICommand</code> to <code>INotification</code>
@@ -74,6 +70,6 @@ module puremvc
 		 * 		The name of the <code>INotification</code> to remove the <code>ICommand</code>
 		 * 		mapping for.
 		 */
-		removeCommand( notificationName:string ):void;
-	}
+        removeCommand(notificationName: string): void;
+    }
 }

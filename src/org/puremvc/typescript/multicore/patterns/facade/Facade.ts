@@ -1,18 +1,5 @@
-///<reference path='../../../../../../org/puremvc/typescript/multicore/interfaces/IFacade.ts'/>
-///<reference path='../../../../../../org/puremvc/typescript/multicore/interfaces/IModel.ts'/>
-///<reference path='../../../../../../org/puremvc/typescript/multicore/interfaces/IView.ts'/>
-///<reference path='../../../../../../org/puremvc/typescript/multicore/interfaces/IController.ts'/>
-///<reference path='../../../../../../org/puremvc/typescript/multicore/interfaces/IProxy.ts'/>
-///<reference path='../../../../../../org/puremvc/typescript/multicore/interfaces/IMediator.ts'/>
-///<reference path='../../../../../../org/puremvc/typescript/multicore/interfaces/INotification.ts'/>
-///<reference path='../../../../../../org/puremvc/typescript/multicore/core/Controller.ts'/>
-///<reference path='../../../../../../org/puremvc/typescript/multicore/core/Model.ts'/>
-///<reference path='../../../../../../org/puremvc/typescript/multicore/core/View.ts'/>
-///<reference path='../../../../../../org/puremvc/typescript/multicore/patterns/observer/Notification.ts'/>
-
-module puremvc
-{
-	"use strict";
+module puremvc {
+    "use strict";
 
 	/**
 	 * A base multiton <code>IFacade</code> implementation.
@@ -32,36 +19,35 @@ module puremvc
 	 * This <code>Facade</code> implementation is a multiton instance and cannot be instantiated directly,
 	 * but instead calls the static multiton factory method <code>Facade.getInstance( key )</code>.
 	 */
-	export class Facade
-		implements IFacade
-	{
+    export class Facade
+        implements IFacade { 
 		/**
 		 * Local reference to the <code>Model</code> multiton.
 		 *
 		 * @protected
 		 */
-		model:IModel = null;
+        model: IModel = null;
 
 		/**
 		 * Local reference to the <code>View</code> multiton.
 		 *
 		 * @protected
 		 */
-		view:IView = null;
+        view: IView = null;
 
 		/**
 		 * Local reference to the <code>Controller</code> multiton.
 		 *
 		 * @protected
 		 */
-		controller:IController = null;
+        controller: IController = null;
 
 		/**
 		 * The multiton Key for this Core.
 		 *
 		 * @protected
 		 */
-		multitonKey:string = null;
+        multitonKey: string = null;
 
 		/**
 		 * Constructs a <code>Controller</code> instance.
@@ -77,15 +63,14 @@ module puremvc
 		 * @throws Error
 		 *		Throws an error if an instance for this multiton key has already been constructed.
 		 */
-		constructor( key )
-		{
-			if( Facade.instanceMap[ key ] )
-				throw Error( Facade.MULTITON_MSG );
+        constructor(key) {
+            if (Facade.instanceMap[key])
+                throw Error(Facade.MULTITON_MSG);
 
-			this.initializeNotifier( key );
-			Facade.instanceMap[ key ] = this;
-			this.initializeFacade();
-		}
+            this.initializeNotifier(key);
+            Facade.instanceMap[key] = this;
+            this.initializeFacade();
+        }
 
 		/**
 		 * Called automatically by the constructor.
@@ -97,12 +82,11 @@ module puremvc
 		 *
 		 * @protected
 		 */
-		initializeFacade():void
-		{
-			this.initializeModel();
-			this.initializeController();
-			this.initializeView();
-		}
+        initializeFacade(): void {
+            this.initializeModel();
+            this.initializeController();
+            this.initializeView();
+        }
 
 		/**
 		 * Initialize the <code>Model</code>.
@@ -127,11 +111,10 @@ module puremvc
 		 *
 		 * @protected
 		 */
-		initializeModel():void
-		{
-			if( !this.model )
-				this.model = Model.getInstance( this.multitonKey );
-		}
+        initializeModel(): void {
+            if (!this.model)
+                this.model = Model.getInstance(this.multitonKey);
+        }
 
 		/**
 		 * Initialize the <code>Controller</code>.
@@ -150,11 +133,10 @@ module puremvc
 		 *
 		 * @protected
 		 */
-		initializeController():void
-		{
-			if( !this.controller )
-				this.controller = Controller.getInstance( this.multitonKey );
-		}
+        initializeController(): void {
+            if (!this.controller)
+                this.controller = Controller.getInstance(this.multitonKey);
+        }
 
 		/**
 		 * Initialize the <code>View</code>.
@@ -177,11 +159,10 @@ module puremvc
 		 *
 		 * @protected
 		 */
-		initializeView():void
-		{
-			if( !this.view )
-				this.view = View.getInstance( this.multitonKey );
-		}
+        initializeView(): void {
+            if (!this.view)
+                this.view = View.getInstance(this.multitonKey);
+        }
 
 		/**
 		 * Register an <code>ICommand</code> with the <code>IController</code> associating it to a
@@ -194,10 +175,9 @@ module puremvc
 		 * @param commandClassRef
 		 * 		A reference to the constructor of the <code>ICommand</code>.
 		 */
-		registerCommand( notificationName:string, commandClassRef:Function ):void
-		{
-			this.controller.registerCommand( notificationName, commandClassRef );
-		}
+        registerCommand(notificationName: string, commandClassRef: Function): void {
+            this.controller.registerCommand(notificationName, commandClassRef);
+        }
 
 		/**
 		 * Remove a previously registered <code>ICommand</code> to <code>INotification</code>
@@ -207,10 +187,9 @@ module puremvc
 		 *		The name of the <code>INotification</code> to remove the <code>ICommand</code>
 		 *		mapping for.
 		 */
-		removeCommand( notificationName:string ):void
-		{
-			this.controller.removeCommand( notificationName );
-		}
+        removeCommand(notificationName: string): void {
+            this.controller.removeCommand(notificationName);
+        }
 
 		/**
 		 * Check if an <code>ICommand</code> is registered for a given <code>Notification</code>.
@@ -223,10 +202,9 @@ module puremvc
 		 * 		A <code>Command</code> is currently registered for the given
 		 *		<code>notificationName</code>.
 		 */
-		hasCommand( notificationName:string ):boolean
-		{
-			return this.controller.hasCommand(notificationName);
-		}
+        hasCommand(notificationName: string): boolean {
+            return this.controller.hasCommand(notificationName);
+        }
 
 		/**
 		 * Register an <code>IProxy</code> with the <code>Model</code> by name.
@@ -234,10 +212,9 @@ module puremvc
 		 * @param proxy
 		 *		The <code>IProxy</code> to be registered with the <code>Model</code>.
 		 */
-		registerProxy( proxy:IProxy ):void
-		{
-			this.model.registerProxy( proxy );
-		}
+        registerProxy(proxy: IProxy): void {
+            this.model.registerProxy(proxy);
+        }
 				
 		/**
 		 * Retrieve an <code>IProxy</code> from the <code>Model</code> by name.
@@ -249,10 +226,9 @@ module puremvc
 		 * 		The <code>IProxy</code> previously registered with the given
 		 *		<code>proxyName</code>.
 		 */
-		retrieveProxy( proxyName:string ):IProxy
-		{
-			return this.model.retrieveProxy( proxyName );
-		}
+        retrieveProxy(proxyName: string): IProxy {
+            return this.model.retrieveProxy(proxyName);
+        }
 
 		/**
 		 * Remove an <code>IProxy</code> from the <code>Model</code> by name.
@@ -263,14 +239,13 @@ module puremvc
 		 * @return
 		 *		The <code>IProxy</code> that was removed from the <code>Model</code>
 		 */
-		removeProxy ( proxyName:string ):IProxy
-		{
-			var proxy:IProxy;
-			if( this.model )
-				proxy = this.model.removeProxy( proxyName );
+        removeProxy(proxyName: string): IProxy {
+            var proxy: IProxy;
+            if (this.model)
+                proxy = this.model.removeProxy(proxyName);
 
-			return proxy
-		}
+            return proxy
+        }
 
 		/**
 		 * Check if a <code>Proxy</code> is registered.
@@ -282,10 +257,9 @@ module puremvc
 		 * @return
 		 * 		A <code>Proxy</code> is currently registered with the given	<code>proxyName</code>.
 		 */
-		hasProxy( proxyName:string ):boolean
-		{
-			return this.model.hasProxy( proxyName );
-		}
+        hasProxy(proxyName: string): boolean {
+            return this.model.hasProxy(proxyName);
+        }
 
 		/**
 		 * Register a <code>IMediator</code> with the <code>IView</code>.
@@ -293,11 +267,10 @@ module puremvc
 		 * @param mediator
 		 *		A reference to the <code>IMediator</code>.
 		 */
-		registerMediator( mediator:IMediator ):void
-		{
-			if( this.view )
-				this.view.registerMediator( mediator );
-		}
+        registerMediator(mediator: IMediator): void {
+            if (this.view)
+                this.view.registerMediator(mediator);
+        }
 
 		/**
 		 * Retrieve an <code>IMediator</code> from the <code>IView</code>.
@@ -309,10 +282,9 @@ module puremvc
 		 *		The <code>IMediator</code> previously registered with the given
 		 *		<code>mediatorName</code>.
 		 */
-		retrieveMediator( mediatorName:string ):IMediator
-		{
-			return this.view.retrieveMediator( mediatorName );
-		}
+        retrieveMediator(mediatorName: string): IMediator {
+            return this.view.retrieveMediator(mediatorName);
+        }
 
 		/**
 		 * Remove an <code>IMediator</code> from the <code>IView</code>.
@@ -323,14 +295,13 @@ module puremvc
 		 * @return
 		 *		The <code>IMediator</code> that was removed from the <code>IView</code>
 		 */
-		removeMediator( mediatorName:string ):IMediator
-		{
-			var mediator:IMediator;
-			if( this.view )
-				mediator = this.view.removeMediator( mediatorName );
+        removeMediator(mediatorName: string): IMediator {
+            var mediator: IMediator;
+            if (this.view)
+                mediator = this.view.removeMediator(mediatorName);
 
-			return mediator;
-		}
+            return mediator;
+        }
 
 		/**
 		 * Check if a <code>Mediator</code> is registered or not
@@ -342,10 +313,9 @@ module puremvc
 		 * @return
 		 * 		An <code>IMediator</code> is registered with the given <code>mediatorName</code>.
 		 */
-		hasMediator( mediatorName:string ):boolean
-		{
-			return this.view.hasMediator( mediatorName );
-		}
+        hasMediator(mediatorName: string): boolean {
+            return this.view.hasMediator(mediatorName);
+        }
 
 		/**
 		 * Notify the <code>IObserver</code>s for a particular <code>INotification</code>.
@@ -361,11 +331,10 @@ module puremvc
 		 * 		The <code>INotification</code> to have the <code>IView</code> notify
 		 *		<code>IObserver</code>s	of.
 		 */
-		notifyObservers ( notification:INotification ):void
-		{
-			if( this.view )
-				this.view.notifyObservers( notification );
-		}
+        notifyObservers(notification: INotification): void {
+            if (this.view)
+                this.view.notifyObservers(notification);
+        }
 
 		/**
 		 * Create and send an <code>INotification</code>.
@@ -381,10 +350,9 @@ module puremvc
 		 * @param type
 		 *		The type of the notification to send.
 		 */
-		sendNotification( name:string, body:any=null, type:string=null ):void
-		{
-			this.notifyObservers( new Notification( name, body, type ) );
-		}
+        sendNotification(name: string, body: any = null, type: string = null): void {
+            this.notifyObservers(new Notification(name, body, type));
+        }
 		
 		/** 
 		 * Set the multiton key for this <code>Facade</code> instance.
@@ -396,23 +364,22 @@ module puremvc
 		 *		The multiton key for this <code>Facade</code> instance to initialize the
 		 *		<code>Notifier</code> with.
 		 */
-		initializeNotifier( key:string ):void
-		{
-			this.multitonKey = key;
-		}
+        initializeNotifier(key: string): void {
+            this.multitonKey = key;
+        }
 
 		/**
 		 * @constant
 		 * @protected
 		 */
-		static MULTITON_MSG:string = "Facade instance for this multiton key already constructed!";
+        static MULTITON_MSG: string = "Facade instance for this multiton key already constructed!";
 
 		/**
 		 * <code>Facade</code> singleton instance map.
 		 *
 		 * @protected
 		 */
-		static instanceMap:Object = {};
+        static instanceMap: Object = {};
 
 		/**
 	 	 * <code>Facade</code> multiton factory method.
@@ -423,13 +390,12 @@ module puremvc
 		 * @return
 		 * 		The singleton instance of <code>Facade</code>.
 		 */
-		static getInstance( key:string ):IFacade
-		{
-			if( !Facade.instanceMap[ key ] )
-				Facade.instanceMap[ key ] = new Facade( key );
+        static getInstance(key: string): IFacade {
+            if (!Facade.instanceMap[key])
+                Facade.instanceMap[key] = new Facade(key);
 
-			return Facade.instanceMap[ key ];
-		}
+            return Facade.instanceMap[key];
+        }
 
 		/**
 		 * Check if a core is registered or not.
@@ -440,10 +406,9 @@ module puremvc
 		 * @return
 		 *		The core is registered with the given <code>key</code>.
 		 */
-		static hasCore( key:string ):boolean
-		{
-			return Facade.instanceMap[ key ] ? true : false;
-		}
+        static hasCore(key: string): boolean {
+            return Facade.instanceMap[key] ? true : false;
+        }
 
 		/**
 		 * Remove a core.
@@ -454,16 +419,15 @@ module puremvc
 		 * @param key
 		 *		Key identifier of the core to remove.
 		 */
-		static removeCore( key:string ):void
-		{
-			if( !Facade.instanceMap[ key ] )
-				return;
+        static removeCore(key: string): void {
+            if (!Facade.instanceMap[key])
+                return;
 
-			Model.removeModel( key ); 
-			View.removeView( key );
-			Controller.removeController( key );
+            Model.removeModel(key);
+            View.removeView(key);
+            Controller.removeController(key);
 
-			delete Facade.instanceMap[ key ];
-		}
-	}
+            delete Facade.instanceMap[key];
+        }
+    }
 }

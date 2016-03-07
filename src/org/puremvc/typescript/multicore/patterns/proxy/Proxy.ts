@@ -1,11 +1,5 @@
-///<reference path='../../../../../../org/puremvc/typescript/multicore/interfaces/IProxy.ts'/>
-///<reference path='../../../../../../org/puremvc/typescript/multicore/interfaces/INotifier.ts'/>
-
-///<reference path='../../../../../../org/puremvc/typescript/multicore/patterns/observer/Notifier.ts'/>
-
-module puremvc
-{
-	"use strict";
+module puremvc {
+    "use strict";
 	
 	/**
 	 * A base <code>IProxy</code> implementation. 
@@ -25,23 +19,21 @@ module puremvc
 	 * <LI>Encapsulate interaction with local or remote services used to fetch and persist model
 	 * data.
 	 */
-	export class Proxy
-		extends Notifier
-		implements IProxy, INotifier
-	{
+    export class Proxy extends Notifier
+        implements IProxy, INotifier {
 		/**
 		 * The name of the <code>Proxy</code>.
 		 *
 		 * @protected
 		 */
-		proxyName:string = null;
+        proxyName: string = null;
 
 		/**
 		 * The data object controlled by the <code>Proxy</code>.
 		 *
 		 * @protected
 		 */
-		data:any = null;
+        data: any = null;
 
 		/**
 		 * Constructs a <code>Proxy</code> instance.
@@ -52,15 +44,14 @@ module puremvc
 		 * @param data
 		 * 		An initial data object to be held by the <code>Proxy</code>.
 		 */
-		constructor( proxyName:string=null, data:any=null )
-		{
-			super();
+        constructor(proxyName: string = null, data: any = null) {
+            super();
 
-			this.proxyName = (proxyName != null) ? proxyName : Proxy.NAME;
+            this.proxyName = (proxyName != null) ? proxyName : Proxy.NAME;
 
-			if( data != null )
-				this.setData(data);
-		}
+            if (data != null)
+                this.setData(data);
+        }
 
 		/**
 		 * Get the name of the <code>Proxy></code> instance.
@@ -68,10 +59,9 @@ module puremvc
 		 * @return
 		 * 		The name of the <code>Proxy></code> instance.
 		 */
-		getProxyName():string
-		{
-			return this.proxyName;
-		}		
+        getProxyName(): string {
+            return this.proxyName;
+        }		
 
 		/**
 		 * Set the data of the <code>Proxy></code> instance.
@@ -79,10 +69,9 @@ module puremvc
 		 * @param data
 		 * 		The data to set for the <code>Proxy></code> instance.
 		 */
-		setData( data:any ):void
-		{
-			this.data = data;
-		}
+        setData(data: any): void {
+            this.data = data;
+        }
 
 		/**
 		 * Get the data of the <code>Proxy></code> instance.
@@ -90,28 +79,25 @@ module puremvc
 		 * @return
 		 * 		The data held in the <code>Proxy</code> instance.
 		 */
-		getData():any
-		{
-			return this.data;
-		}
+        getData(): any {
+            return this.data;
+        }
 
 		/**
 		 * Called by the Model when the <code>Proxy</code> is registered. This method has to be
 		 * overridden by the subclass to know when the instance is registered.
 		 */
-		onRegister():void
-		{
+        onRegister(): void {
 
-		}
+        }
 
 		/**
 		 * Called by the Model when the <code>Proxy</code> is removed. This method has to be
 		 * overridden by the subclass to know when the instance is removed.
 		 */
-		onRemove():void
-		{
+        onRemove(): void {
 
-		}
+        }
 
 		/**
 		 * The default name of the <code>Proxy</code>
@@ -119,6 +105,6 @@ module puremvc
 		 * @type
 		 * @constant
 		 */
-		 static NAME:string = "Proxy";
-	}
+        static NAME: string = "Proxy";
+    }
 }
